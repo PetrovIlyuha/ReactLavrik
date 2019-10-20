@@ -23,12 +23,21 @@ export default class Counter extends React.Component {
         let counter = Math.min(Math.max(newCounter, this.props.min), this.props.max);
         this.setState({counter});
     }
+
+    setValue(newStr) {
+        let counter = parseInt(newStr);
+        this.set(isNaN(counter) ? this.props.min : counter);
+    }
+
     render() {
         return (
             <div>
-            <button onClick={this.decrement} style={{paddingLeft: '10px'}}>-</button>
-            <strong style={{paddingLeft: '10px'}}>{this.state.counter}</strong>
-            <button onClick={this.increment} style={{marginLeft: '10px'}}>+</button>
+                <button onClick={this.decrement} style={{paddingLeft: '10px'}}>-</button>
+                <input 
+                    value={this.state.counter} 
+                    onChange={(e) => this.setValue(e.target.value)}
+                />
+                <button onClick={this.increment} style={{marginLeft: '10px'}}>+</button>
             </div>
         );                  
     }
