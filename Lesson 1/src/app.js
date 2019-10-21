@@ -1,9 +1,101 @@
 import React from 'react';
-import AppMinMax from './homework/5-normal-input';
+import AppMinMax from './inputs/minmax';
+
 
 export default class extends React.Component {
     state = {
-        products: [
+        products: getProducts(),
+        formDone: false
+    }
+
+changeCnt(index, cnt){
+    let products = [...this.state.products];    
+    products[index] = {...products[index], current: cnt};
+    this.setState({products})
+}
+
+removeItem(index) {
+   let products = [...this.state.products].filter((product, ind) => ind !== index)
+   this.setState({products})
+}
+
+sendForm = () => {
+    this.setState({formDone: true})
+}
+
+render() {         
+let productsTableRows = this.state.products.map((product, index) => {
+    return (
+        <tr key={index}>
+            <td>{product.title}</td>
+            <td>{product.price}</td>
+            <td>
+                <AppMinMax 
+                    min={1} 
+                    max={product.rest} 
+                    cnt={product.current}    
+                    onChange={(cnt) => this.changeCnt(index, cnt)}
+                    onClick={() => this.removeItem(index)}                  
+                />
+            </td>
+            <td>{product.price * product.current}</td>
+            <td>
+                <button onClick={() => this.removeItem(index)}>Remove Item</button>
+            </td>
+        </tr>
+    )
+});
+    let totalShippingCost = this.state.products
+        .reduce((acc, product) => (product.price * product.current) + acc, 0);
+    let pages = this.state.formDone ? showCongrats() : showForm(productsTableRows, totalShippingCost, this.sendForm)
+      return (
+          <div>              
+             {pages} 
+             <hr/>
+             <button onClick={() => this.changeCnt(1,4)}>
+                Change Counter Min
+             </button>
+          </div>
+      );
+  }
+}
+
+function showForm(productsTableRows, totalShippingCost, sendForm){
+    return (
+        <div>
+            <h2 style={{"marginLeft": '270px'}}>Cart</h2>
+            <table style={{"textAlign": 'center', "margin": "20px"}}>
+                <thead>
+                    <tr>
+                        <td>Title</td>
+                        <td>Price</td>
+                        <td>Count</td>
+                        <td>Total</td>
+                        <td>Actions</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {productsTableRows}
+                </tbody>                
+            </table>
+            <hr/>               
+            <h2 style={{"marginLeft": '500px'}}>Total: </h2>
+            <span style={{"marginLeft": '490px', "fontSize": '1.5rem'}}>{totalShippingCost}</span>
+            <hr/>
+            <button onClick={sendForm}>Send</button>
+        </div>
+    );
+}
+
+const showCongrats = () => (
+    <div>   
+        <h3>Your Order is in Process</h3>
+        <p># 324</p>        
+    </div>
+)
+const getProducts = () => {
+    return (
+        [
             {
                 id: 100,
                 title: 'Galaxy Fold',
@@ -15,70 +107,23 @@ export default class extends React.Component {
                 id: 101,
                 title: 'Huawei P30',
                 price: 40000,
-                rest: 7,
-                current: 3
+                rest: 10,
+                current: 1
             },
             {
                 id: 102,
                 title: 'Xiaomi Mi6 Note',
                 price: 15000,
-                rest: 5,
-                current: 2
+                rest: 10,
+                current: 1
+            },
+            {
+                id: 103,
+                title: 'IPhone XS',
+                price: 88000,
+                rest: 10,
+                current: 1
             }
         ]
-    }
-
-    changeCnt(index, cnt){
-      let newProducts = [...this.state.products];
-      console.log([...this.state.products]);
-      let newProduct = {...newProducts[index]};
-      newProduct.current = cnt;
-      newProducts[index] = newProduct;
-      this.setState({products: newProducts})
-    }
-    removeItem(index) {
-        let finalCart = [...this.state.products].filter((index) => products.id !== index);
-        this.setState({products: finalCart})
-    }
-  render() {         
-    let productsTableRows = this.state.products.map((product, index) => {
-        return (
-            <tr key={index}>
-                <td>{product.title}</td>
-                <td>{product.price}</td>
-                <td>
-                    <AppMinMax 
-                        min={1} 
-                        max={product.rest} 
-                        cnt={product.current}    
-                        onChange={(cnt) => this.changeCnt(index, cnt)}                  
-                    />
-                </td>
-                <td>{product.price * product.current}</td>
-                <button onChange={() => this.removeItem()}>Remove Item</button>
-                </tr>
-        )
-    });
-    let totalShippingCost = this.state.products
-        .reduce((acc, product) => (product.price * product.current) + acc, 0);
-      return (
-          <div>
-              <h2>Cart</h2>
-              <table>
-                <tbody>
-                    <tr>
-                        <td>Title</td>
-                        <td>Price</td>
-                        <td>Count</td>
-                        <td>Total</td>
-                    </tr>
-                    {productsTableRows}
-                </tbody>                
-                </table>
-                <hr/>               
-                <h2>Total: </h2>
-                <span>{totalShippingCost}</span>
-          </div>
-      );
-  }
+    )
 }
