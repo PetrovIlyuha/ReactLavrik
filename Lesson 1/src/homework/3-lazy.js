@@ -53,8 +53,8 @@ export default class Counter extends React.Component {
                     onChange={(e) => this.setValue(e.target.value)}
                     onBlur={this.applyValue}
                     onKeyUp={this.checkEnterKey}
-                />
-                <button onClick={this.increment} style={{marginLeft: '10px'}}>+</button>
+                />                
+                <button onClick={this.increment} style={{marginLeft: '10px'}}>+</button>                
             </div>
         );                  
     }
