@@ -1,5 +1,6 @@
 import React from 'react';
-import AppMinMax from './inputs/minmax';
+import AppMinMax from './inputs/minmax/minmax';
+import { Button } from 'react-bootstrap';
 
 
 export default class extends React.Component {
@@ -40,7 +41,7 @@ let productsTableRows = this.state.products.map((product, index) => {
             </td>
             <td>{product.price * product.current}</td>
             <td>
-                <button onClick={() => this.removeItem(index)}>Remove Item</button>
+                <Button variant="primary" onClick={() => this.removeItem(index)}>Remove Item</Button>
             </td>
         </tr>
     )
@@ -49,7 +50,7 @@ let productsTableRows = this.state.products.map((product, index) => {
         .reduce((acc, product) => (product.price * product.current) + acc, 0);
     let pages = this.state.formDone ? showCongrats() : showForm(productsTableRows, totalShippingCost, this.sendForm)
       return (
-          <div>              
+          <div className="container">              
              {pages} 
              <hr/>
              <button onClick={() => this.changeCnt(1,4)}>
@@ -63,8 +64,8 @@ let productsTableRows = this.state.products.map((product, index) => {
 function showForm(productsTableRows, totalShippingCost, sendForm){
     return (
         <div>
-            <h2 style={{"marginLeft": '270px'}}>Cart</h2>
-            <table style={{"textAlign": 'center', "margin": "20px"}}>
+            <h2>Cart</h2>
+            <table className="table table-bordered">
                 <thead>
                     <tr>
                         <td>Title</td>
