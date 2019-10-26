@@ -1,4 +1,5 @@
 import React from "react";
+import { observable, action, computed } from "mobx";
 
 import Cart from "~p/cart";
 import Order from "~p/order";
@@ -11,13 +12,13 @@ class Router {
     result: () => <Result />
   };
 
-  activeRoute = "cart";
+  @observable activeRoute = "cart";
 
-  get component() {
+  @computed get component() {
     return this.routes[this.activeRoute]();
   }
 
-  moveTo(route) {
+  @action moveTo(route) {
     this.activeRoute = route;
   }
 }

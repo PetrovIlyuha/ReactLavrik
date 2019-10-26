@@ -5,8 +5,10 @@ import { Button } from "react-bootstrap";
 
 import cartModel from "~s/cart.js";
 import Router from "~s/router.js";
+import { observer } from "mobx-react";
 
-export default class extends React.Component {
+@observer
+class Cart extends React.Component {
   render() {
     let productsTableRows = cartModel.products.map((product, index) => {
       return (
@@ -59,3 +61,5 @@ export default class extends React.Component {
     );
   }
 }
+
+export default Cart;

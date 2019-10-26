@@ -1,16 +1,18 @@
 import React from "react";
 import styles from "./app.module.css";
+import { observer } from "mobx-react";
 
 import Router from "~s/router.js";
 
-export default class extends React.Component {
+@observer
+class App extends React.Component {
   render() {
     return (
       <div className="container">
-        <button onClick={() => this.forceUpdate()}>Force Upd</button>
-        <hr />
         <div className="container">{Router.component}</div>
       </div>
     );
   }
 }
+
+export default App;

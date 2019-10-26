@@ -21,6 +21,8 @@ export default class extends React.Component {
     onClick: PropTypes.func
   };
 
+  lazyInput = React.createRef();
+
   increase = () => {
     this.set(this.props.cnt + 1);
   };
@@ -31,14 +33,17 @@ export default class extends React.Component {
 
   set(newCnt) {
     let cnt = Math.min(Math.max(newCnt, this.props.min), this.props.max);
-
-    // как-то сказать родителю, что cnt обновился
     this.props.onChange(cnt);
+    return cnt;
   }
 
   onChange = e => {
     let cnt = parseInt(e.target.value);
-    this.set(isNaN(cnt) ? this.props.min : cnt);
+    let realCnt = this.set(isNaN(cnt) ? this.props.min : cnt);
+    if (realCnt.toString() !== e.target.value) {
+      console.log("HARD SET VALUE");
+      this.lazyInput.current.setValue(realCnt);
+    }
   };
 
   render() {
@@ -51,6 +56,7 @@ export default class extends React.Component {
           nativeProps={{ type: "text", className: styles.input }}
           value={this.props.cnt}
           onChange={this.onChange}
+          ref={this.lazyInput}
         />
         <Button variant="secondary" onClick={this.increase}>
           +
