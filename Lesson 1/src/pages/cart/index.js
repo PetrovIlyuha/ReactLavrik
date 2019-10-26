@@ -1,22 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import AppMinMax from "../inputs/minmax/minmax";
+import AppMinMax from "~c/inputs/minmax/minmax";
 import { Button } from "react-bootstrap";
 
-export default class extends React.Component {
-  static propTypes = {
-    products: PropTypes.array.isRequired,
-    onSend: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired,
-    onRemove: PropTypes.func.isRequired
-  };
+import cartModel from "~s/cart.js";
+import Router from "~s/router.js";
 
+export default class extends React.Component {
   render() {
-    let totalShippingCost = this.props.products.reduce(
-      (acc, product) => product.price * product.current + acc,
-      0
-    );
-    let productsTableRows = this.props.products.map((product, index) => {
+    let productsTableRows = cartModel.products.map((product, index) => {
       return (
         <tr key={index}>
           <td>{product.title}</td>
@@ -26,15 +18,12 @@ export default class extends React.Component {
               min={1}
               max={product.rest}
               cnt={product.current}
-              onChange={cnt => this.props.onChange(index, cnt)}
+              onChange={cnt => cartModel.change(index, cnt)}
             />
           </td>
           <td>{product.price * product.current}</td>
           <td>
-            <Button
-              variant="primary"
-              onClick={() => this.props.onRemove(index)}
-            >
+            <Button variant="primary" onClick={() => cartModel.remove(index)}>
               Remove Item
             </Button>
           </td>
@@ -58,12 +47,12 @@ export default class extends React.Component {
           <tbody>{productsTableRows}</tbody>
         </table>
         <hr />
-        <h2 style={{ marginLeft: "500px" }}>Total: </h2>
+        <h2 style={{ marginLeft: "500px" }}>Total: {cartModel.total}</h2>
         <span style={{ marginLeft: "490px", fontSize: "1.5rem" }}>
-          {totalShippingCost}
+          {cartModel.total}
         </span>
         <hr />
-        <button className="btn btn-info" onClick={this.props.onSend}>
+        <button className="btn btn-info" onClick={() => Router.moveTo("order")}>
           Send
         </button>
       </div>

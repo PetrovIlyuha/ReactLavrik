@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 
 import styles from "./minmax.css";
 
-import AppLazyInput from "../lazy";
+import AppLazyInput from "~c/inputs/lazy";
 
 export default class extends React.Component {
   static defaultProps = {
