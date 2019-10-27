@@ -37,7 +37,7 @@ class Order extends Component {
             value={field.value}
             onChange={e => orderModel.change(name, e.target.value)}
           />
-          {field.valid ? (
+          {field.valid === null || field.valid ? (
             ""
           ) : (
             <Form.Text className="text-muted">{field.errorText}</Form.Text>
@@ -54,7 +54,11 @@ class Order extends Component {
           Back to Cart
         </Button>
         &nbsp;
-        <Button variant="info" onClick={this.show}>
+        <Button
+          variant="info"
+          onClick={this.show}
+          disabled={!orderModel.formValid}
+        >
           Go to CheckOut
         </Button>
         <Modal show={this.state.showModal} backdrop="static" onHide={this.hide}>

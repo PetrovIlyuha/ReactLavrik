@@ -1,37 +1,48 @@
-import { observable, action } from "mobx";
+import { observable, action, computed } from "mobx";
 
 class Order {
   @observable formData = {
     name: {
       value: "",
       label: "Name",
-      validator: val => /^[aA-zZ]{6,}$/.test(val),
-      errorText: "Name should be comprised of not less then 6 latin characters",
-      valid: false
+      validator: val => /[\wа-яА-Я]{6}/gi.test(val),
+      errorText: "Russian letters, at least 6",
+      valid: null
     },
     phone: {
       value: "",
       label: "Phone",
       validator: val => /^((\+7|7|8)+([0-9]){10})$/.test(val),
-      errorText: "Your Phone number must of the right format",
-      valid: false
+      errorText: "Phone Number in +79**145**** format",
+      valid: null
     },
     email: {
       value: "",
       label: "Email",
       validator: val =>
-        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-          val
-        ),
-      errorText: "Check the spelling, please...Wrong format of email",
-      valid: false
+        /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(val),
+      errorText: "Check your email input, it seems to be invalid characters",
+      valid: null
     }
   };
+
+  @computed get formValid() {
+    return Object.values(this.formData).every(field => field.valid);
+  }
+
+  @computed get data() {
+    let data = {};
+
+    for (let name in this.formData) {
+      data[name] = this.formData[name].value;
+    }
+    return data;
+  }
 
   @action change(key, value) {
     let field = this.formData[key];
     field.value = value;
-    field.value = field.validator(field.value);
+    field.valid = field.validator(field.value);
   }
 }
 
