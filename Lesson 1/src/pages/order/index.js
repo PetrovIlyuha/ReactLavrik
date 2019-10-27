@@ -1,15 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Form, Button, Modal } from "react-bootstrap";
+import { observer } from "mobx-react";
+import orderModel from "~s/order";
+import router from "~s/router";
+import cartModel from "~s/cart";
 
-export default class extends Component {
-  static propTypes = {
-    formData: PropTypes.object.isRequired,
-    onSend: PropTypes.func.isRequired,
-    onBack: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired
-  };
-
+@observer
+class Order extends Component {
   state = {
     showModal: false
   };
@@ -24,21 +22,26 @@ export default class extends Component {
 
   confirm = () => {
     this.hide();
-    this.props.onSend();
+    router.moveTo("result");
   };
 
   render() {
     let formFields = [];
-    for (let name in this.props.formData) {
-      let field = this.props.formData[name];
+    for (let name in orderModel.formData) {
+      let field = orderModel.formData[name];
       formFields.push(
         <Form.Group key={name} controlId={"order-form-" + name}>
           <Form.Label>{field.label}</Form.Label>
           <Form.Control
             type="text"
             value={field.value}
-            onChange={e => this.props.onChange(name, e.target.value)}
+            onChange={e => orderModel.change(name, e.target.value)}
           />
+          {field.valid ? (
+            ""
+          ) : (
+            <Form.Text className="text-muted">{field.errorText}</Form.Text>
+          )}
         </Form.Group>
       );
     }
@@ -47,19 +50,21 @@ export default class extends Component {
         <h2>Order</h2>
         <hr />
         {formFields}
-        <Button variant="warning" onClick={this.props.onBack}>
+        <Button variant="warning" onClick={() => router.moveTo("cart")}>
           Back to Cart
         </Button>
         &nbsp;
         <Button variant="info" onClick={this.show}>
           Go to CheckOut
         </Button>
-        <Modal show={this.state.showModal} backdrop="static">
+        <Modal show={this.state.showModal} backdrop="static" onHide={this.hide}>
           <Modal.Header closeButton>
             <Modal.Title>Check Order Information</Modal.Title>
           </Modal.Header>
 
-          <Modal.Body>Content</Modal.Body>
+          <Modal.Body>
+            <strong>Total: {cartModel.total}</strong>
+          </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.hide}>
               Close
@@ -73,3 +78,5 @@ export default class extends Component {
     );
   }
 }
+
+export default Order;

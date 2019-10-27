@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import AppMinMax from "~c/inputs/minmax/minmax";
 import { Button } from "react-bootstrap";
 
