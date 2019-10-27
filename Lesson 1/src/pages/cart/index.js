@@ -1,6 +1,6 @@
 import React from "react";
 import AppMinMax from "~c/inputs/minmax/minmax";
-import { Button } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 
 import cartModel from "~s/cart.js";
 import Router from "~s/router.js";
@@ -38,7 +38,7 @@ class Cart extends React.Component {
     return (
       <div>
         <h2>Cart</h2>
-        <table className="table table-bordered">
+        <Table striped bordered hover variant="dark">
           <thead>
             <tr>
               <td>Title</td>
@@ -49,7 +49,7 @@ class Cart extends React.Component {
             </tr>
           </thead>
           <tbody>{productsTableRows}</tbody>
-        </table>
+        </Table>
         <hr />
         <h2 style={{ marginLeft: "500px" }}>Total: {cartModel.total}</h2>
         <span style={{ marginLeft: "490px", fontSize: "1.5rem" }}>

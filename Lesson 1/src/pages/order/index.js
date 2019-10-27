@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { Form, Button, Modal } from "react-bootstrap";
 import { observer } from "mobx-react";
 import orderModel from "~s/order";

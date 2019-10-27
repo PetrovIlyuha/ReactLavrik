@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./app.module.css";
 import Router from "~s/router.js";
 import { observer } from "mobx-react";
 

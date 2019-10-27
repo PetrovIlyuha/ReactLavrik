@@ -49,7 +49,7 @@ export default class extends React.PureComponent {
   render() {
     return (
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <Button variant="secondary" onClick={this.decrease}>
+        <Button variant="danger" size="sm" onClick={this.decrease}>
           -
         </Button>
         <AppLazyInput
@@ -58,7 +58,7 @@ export default class extends React.PureComponent {
           onChange={this.onChange}
           ref={this.lazyInput}
         />
-        <Button variant="secondary" onClick={this.increase}>
+        <Button variant="danger" size="sm" onClick={this.increase}>
           +
         </Button>
       </div>
