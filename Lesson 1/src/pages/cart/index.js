@@ -22,7 +22,7 @@ class Cart extends React.Component {
               min={1}
               max={product.rest}
               cnt={product.current}
-              onChange={cnt => cartModel.change(index, cnt)}
+              onChange={cartModel.changeOn[index]}
             />
           </td>
           <td>{product.price * product.current}</td>

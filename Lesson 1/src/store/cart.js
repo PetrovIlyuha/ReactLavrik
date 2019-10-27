@@ -10,6 +10,12 @@ class Cart {
     );
   }
 
+  @computed get changeOn() {
+    return this.products.map((product, i) => {
+      return cnt => this.change(i, cnt);
+    });
+  }
+
   @action change(index, cnt) {
     this.products[index].current = cnt;
   }
