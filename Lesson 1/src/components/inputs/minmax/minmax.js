@@ -6,7 +6,7 @@ import styles from "./minmax.css";
 
 import AppLazyInput from "~c/inputs/lazy";
 
-export default class extends React.Component {
+export default class extends React.PureComponent {
   static defaultProps = {
     onChange: function(cnt) {
       console.log(cnt);

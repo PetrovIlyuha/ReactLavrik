@@ -8,6 +8,9 @@ import { observer } from "mobx-react";
 
 @observer
 class Cart extends React.Component {
+  prevStep() {
+    Router.moveTo("order");
+  }
   render() {
     let productsTableRows = cartModel.products.map((product, index) => {
       return (
@@ -53,7 +56,7 @@ class Cart extends React.Component {
           {cartModel.total}
         </span>
         <hr />
-        <button className="btn btn-info" onClick={() => Router.moveTo("order")}>
+        <button className="btn btn-info" onClick={this.prevStep}>
           Send
         </button>
       </div>
