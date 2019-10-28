@@ -1,13 +1,16 @@
 import React from "react";
 import AppMinMax from "~c/inputs/minmax/minmax";
 import { Button, Table } from "react-bootstrap";
-import { BrowserRouter, Link } from "react-router-dom";
-import { routesMap } from "~/routes";
+
 import cartModel from "~s/cart.js";
+import Router from "~s/router.js";
 import { observer } from "mobx-react";
 
 @observer
 class Cart extends React.Component {
+  prevStep() {
+    Router.moveTo("order");
+  }
   render() {
     let productsTableRows = cartModel.products.map((product, index) => {
       return (
@@ -53,9 +56,9 @@ class Cart extends React.Component {
           {cartModel.total}
         </span>
         <hr />
-        <Link to={routesMap.order} className="btn btn-info">
-          >> Send
-        </Link>
+        <button className="btn btn-info" onClick={this.prevStep}>
+          Send
+        </button>
       </div>
     );
   }

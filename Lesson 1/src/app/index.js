@@ -1,14 +1,25 @@
 import React from "react";
-import Router from "~s/router.js";
 import { observer } from "mobx-react";
+import { BrowserRouter, Route } from "react-router-dom";
+import routes from "~/routes";
 
 @observer
 class App extends React.Component {
   render() {
+    let routesComponents = routes.map(route => {
+      return (
+        <Route
+          path={route.url}
+          component={route.component}
+          exact={route.exact}
+          key={route.id}
+        />
+      );
+    });
     return (
-      <div className="container">
-        <div className="container">{Router.component}</div>
-      </div>
+      <BrowserRouter>
+        <div className="container">{routesComponents}</div>
+      </BrowserRouter>
     );
   }
 }

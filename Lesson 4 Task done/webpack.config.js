@@ -74,7 +74,7 @@ let conf = {
     }
   },
   devServer: {
-    historyApiFallback: true
+    apiHistoryFallback: true
   }
 };
 
