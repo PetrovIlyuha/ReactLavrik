@@ -4,6 +4,8 @@ import { observer } from "mobx-react";
 import orderModel from "~s/order";
 import router from "~s/router";
 import cartModel from "~s/cart";
+import { Link } from "react-router-dom";
+import { routesMap } from "~/routes";
 
 @observer
 class Order extends Component {
@@ -21,7 +23,7 @@ class Order extends Component {
 
   confirm = () => {
     this.hide();
-    router.moveTo("result");
+    this.props.history.push(routesMap.result);
   };
 
   render() {
@@ -49,9 +51,9 @@ class Order extends Component {
         <h2>Order</h2>
         <hr />
         {formFields}
-        <Button variant="warning" onClick={() => router.moveTo("cart")}>
+        <Link to={routesMap.home} className="btn btn-warning">
           Back to Cart
-        </Button>
+        </Link>
         &nbsp;
         <Button
           variant="info"

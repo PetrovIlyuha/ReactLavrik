@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import routes from "~/routes";
 
 @observer
@@ -12,13 +12,15 @@ class App extends React.Component {
           path={route.url}
           component={route.component}
           exact={route.exact}
-          key={route.id}
+          key={route.url}
         />
       );
     });
     return (
       <BrowserRouter>
-        <div className="container">{routesComponents}</div>
+        <div className="container">
+          <Switch>{routesComponents}</Switch>
+        </div>
       </BrowserRouter>
     );
   }

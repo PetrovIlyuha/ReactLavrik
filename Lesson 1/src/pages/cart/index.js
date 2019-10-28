@@ -1,7 +1,7 @@
 import React from "react";
 import AppMinMax from "~c/inputs/minmax/minmax";
 import { Button, Table } from "react-bootstrap";
-import { BrowserRouter, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { routesMap } from "~/routes";
 import cartModel from "~s/cart.js";
 import { observer } from "mobx-react";
