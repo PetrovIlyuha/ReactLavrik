@@ -1,5 +1,5 @@
 import React from "react";
-import { observer } from "mobx-react";
+import { observer, Provider } from "mobx-react";
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import routes, { routesMap } from "~/routes";
 
@@ -17,34 +17,42 @@ class App extends React.Component {
       );
     });
     return (
-      <BrowserRouter>
-        <div className="container">
-          <header
-            style={{ background: "linear-gradient(to left, red, white)" }}
-          >
-            <h2>Unique Butique</h2>
-          </header>
-          <hr />
-          <div className="row">
-            <div className="col col-3">
-              <div className="list-group">
-                <div className="list-group-item">
-                  <Link to={routesMap.home}>Home</Link>
-                </div>
-                <div className="list-group-item">
-                  <Link to={routesMap.cart}>Cart</Link>
-                </div>
-                <div className="list-group-item">
-                  <Link to={routesMap.order}>Order</Link>
+      <Provider>
+        <BrowserRouter>
+          <div className="container">
+            <header
+              style={{ background: "linear-gradient(to left, red, white)" }}
+            >
+              <h2>Unique Butique</h2>
+            </header>
+            <hr />
+            <div className="row">
+              <div className="col col-3 mt-5">
+                <div className="list-group">
+                  <div className="list-group-item mt-5 bg-dark">
+                    <Link to={routesMap.home} style={{ color: "yellow" }}>
+                      Home
+                    </Link>
+                  </div>
+                  <div className="list-group-item mt-3 bg-dark">
+                    <Link to={routesMap.cart} style={{ color: "yellow" }}>
+                      Cart
+                    </Link>
+                  </div>
+                  <div className="list-group-item mt-3 bg-dark">
+                    <Link to={routesMap.order} style={{ color: "yellow" }}>
+                      Order
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="col col-9">
-              <Switch>{routesComponents}</Switch>
+              <div className="col col-9 bg-secondary">
+                <Switch>{routesComponents}</Switch>
+              </div>
             </div>
           </div>
-        </div>
-      </BrowserRouter>
+        </BrowserRouter>
+      </Provider>
     );
   }
 }
