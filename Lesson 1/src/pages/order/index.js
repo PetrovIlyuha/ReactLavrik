@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
-import { observer } from "mobx-react";
+import { observer, inject } from "mobx-react";
 import orderModel from "~s/order";
-import router from "~/routes";
 import cartModel from "~s/cart";
 import { Link } from "react-router-dom";
 import { routesMap } from "~/routes";
 
+@inject("stores")
 @observer
 class Order extends Component {
   state = {
@@ -27,6 +27,7 @@ class Order extends Component {
   };
 
   render() {
+    let orderModel = this.props.stores.order;
     let formFields = [];
     for (let name in orderModel.formData) {
       let field = orderModel.formData[name];

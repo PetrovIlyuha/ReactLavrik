@@ -3,6 +3,8 @@ import { observer, Provider } from "mobx-react";
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import routes, { routesMap } from "~/routes";
 
+import stores from "~s";
+
 @observer
 class App extends React.Component {
   render() {
@@ -17,7 +19,7 @@ class App extends React.Component {
       );
     });
     return (
-      <Provider>
+      <Provider stores={stores}>
         <BrowserRouter>
           <div className="container">
             <header

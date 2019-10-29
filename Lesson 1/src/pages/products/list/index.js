@@ -1,15 +1,16 @@
 import React from "react";
-import productModel from "~s/products.js";
-import cart from "~s/cart.js";
 import { Card, Button } from "react-bootstrap";
 import { urlBuilder } from "~/routes";
 import { Link } from "react-router-dom";
 import styles from "./index.module.css";
-import { observer } from "mobx-react";
+import { observer, inject } from "mobx-react";
 
+@inject("stores")
 @observer
 class Products extends React.Component {
   render() {
+    let productModel = this.props.stores.products;
+    let cart = this.props.stores.cart;
     let productsCards = productModel.items.map(product => {
       let btn;
 

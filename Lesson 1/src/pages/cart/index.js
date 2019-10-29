@@ -1,14 +1,19 @@
 import React from "react";
+
 import AppMinMax from "~c/inputs/minmax/minmax";
+
 import { Button, Table } from "react-bootstrap";
+
 import { Link } from "react-router-dom";
 import { routesMap } from "~/routes";
-import cartModel from "~s/cart.js";
-import { observer } from "mobx-react";
 
+import { observer, inject } from "mobx-react";
+
+@inject("stores")
 @observer
 class Cart extends React.Component {
   render() {
+    let cartModel = this.props.stores.cart;
     let productsTableRows = cartModel.productsDetailed.map((product, i) => {
       return (
         <tr key={product.id}>
