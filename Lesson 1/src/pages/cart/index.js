@@ -9,22 +9,25 @@ import { observer } from "mobx-react";
 @observer
 class Cart extends React.Component {
   render() {
-    let productsTableRows = cartModel.products.map((product, index) => {
+    let productsTableRows = cartModel.productsDetailed.map((product, i) => {
       return (
-        <tr key={index}>
+        <tr key={product.id}>
           <td>{product.title}</td>
           <td>{product.price}</td>
           <td>
             <AppMinMax
               min={1}
               max={product.rest}
-              cnt={product.current}
-              onChange={cartModel.changeOn[index]}
+              cnt={product.cnt}
+              onChange={cnt => cartModel.change(product.id, cnt)}
             />
           </td>
-          <td>{product.price * product.current}</td>
+          <td>{product.price * product.cnt}</td>
           <td>
-            <Button variant="primary" onClick={() => cartModel.remove(index)}>
+            <Button
+              variant="primary"
+              onClick={() => cartModel.remove(product.id)}
+            >
               Remove Item
             </Button>
           </td>
