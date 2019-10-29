@@ -6,11 +6,8 @@ import { Button, Table } from "react-bootstrap";
 
 import { Link } from "react-router-dom";
 import { routesMap } from "~/routes";
+import withStore from "~/hocs/withStore";
 
-import { observer, inject } from "mobx-react";
-
-@inject("stores")
-@observer
 class Cart extends React.Component {
   render() {
     let cartModel = this.props.stores.cart;
@@ -69,4 +66,4 @@ class Cart extends React.Component {
   }
 }
 
-export default Cart;
+export default withStore(Cart);
