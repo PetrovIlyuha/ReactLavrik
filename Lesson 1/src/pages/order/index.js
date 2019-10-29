@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 import { observer } from "mobx-react";
 import orderModel from "~s/order";
-import router from "~s/router";
+import router from "~/routes";
 import cartModel from "~s/cart";
 import { Link } from "react-router-dom";
 import { routesMap } from "~/routes";
