@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import { routesMap } from "~/routes";
 import withStore from "~/hocs/withStore";
 
+import LinkButton from "~c/links/button";
+
 class Cart extends React.Component {
   render() {
     let cartModel = this.props.stores.cart;
@@ -58,9 +60,9 @@ class Cart extends React.Component {
           {cartModel.total}
         </span>
         <hr />
-        <Link to={routesMap.order} className="btn btn-info">
+        <LinkButton to={routesMap.order} className="btn btn-info">
           >> Send
-        </Link>
+        </LinkButton>
       </div>
     );
   }

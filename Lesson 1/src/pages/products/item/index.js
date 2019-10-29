@@ -3,10 +3,8 @@ import E404 from "~c/errors/404";
 import { routesMap } from "~/routes";
 import { Link } from "react-router-dom";
 import ProductItem from "~c/products/item";
-import { inject, observer } from "mobx-react";
+import withStore from "~/hocs/withStore.js";
 
-@inject("stores")
-@observer
 class Product extends React.Component {
   render() {
     let id = this.props.match.params.id;
@@ -27,4 +25,4 @@ class Product extends React.Component {
   }
 }
 
-export default Product;
+export default withStore(Product);

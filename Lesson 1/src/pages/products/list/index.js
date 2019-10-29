@@ -3,10 +3,8 @@ import { Card, Button } from "react-bootstrap";
 import { urlBuilder } from "~/routes";
 import { Link } from "react-router-dom";
 import styles from "./index.module.css";
-import { observer, inject } from "mobx-react";
+import withStore from "~/hocs/withStore.js";
 
-@inject("stores")
-@observer
 class Products extends React.Component {
   render() {
     let productModel = this.props.stores.products;
@@ -62,4 +60,4 @@ class Products extends React.Component {
   }
 }
 
-export default Products;
+export default withStore(Products);
