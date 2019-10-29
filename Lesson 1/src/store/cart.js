@@ -1,62 +1,45 @@
 import { observable, computed, action } from "mobx";
+import productsStore from "./products";
 
 class Cart {
-  @observable products = getProducts();
+  @observable products = [];
 
-  @computed get total() {
-    return this.products.reduce(
-      (total, product) => total + product.price * product.current,
-      0
-    );
-  }
-
-  @computed get changeOn() {
-    return this.products.map((product, i) => {
-      return cnt => this.change(i, cnt);
+  @computed get productsDetailed() {
+    return this.products.map(pr => {
+      let product = productsStore.getById(pr.id);
+      return { ...product, cnt: pr.cnt };
     });
   }
 
-  @action change(index, cnt) {
-    this.products[index].current = cnt;
+  @computed get inCart() {
+    return id => this.products.some(product => product.id === id);
   }
 
-  @action remove(index) {
-    this.products.splice(index, 1);
+  @computed get total() {
+    return this.productsDetailed.reduce((total, product) => {
+      return total + product.price * product.cnt;
+    }, 0);
+  }
+
+  @action add(id) {
+    this.products.push({ id, cnt: 1 });
+  }
+
+  @action change(id, cnt) {
+    let index = this.products.findIndex(product => product.id === id);
+
+    if (index !== -1) {
+      this.products[index].cnt = cnt;
+    }
+  }
+
+  @action remove(id) {
+    let index = this.products.findIndex(product => product.id === id);
+
+    if (index !== -1) {
+      this.products.splice(index, 1);
+    }
   }
 }
 
 export default new Cart();
-
-// Server API
-function getProducts() {
-  return [
-    {
-      id: 100,
-      title: "Galaxy Fold",
-      price: 120000,
-      rest: 10,
-      current: 1
-    },
-    {
-      id: 101,
-      title: "Huawei P30",
-      price: 40000,
-      rest: 10,
-      current: 1
-    },
-    {
-      id: 102,
-      title: "Xiaomi Mi6 Note",
-      price: 15000,
-      rest: 10,
-      current: 1
-    },
-    {
-      id: 103,
-      title: "IPhone XS",
-      price: 88000,
-      rest: 10,
-      current: 1
-    }
-  ];
-}
