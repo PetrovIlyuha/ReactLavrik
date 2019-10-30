@@ -1,13 +1,9 @@
 import React, { Component } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
-import { observer, inject } from "mobx-react";
-import orderModel from "~s/order";
-import cartModel from "~s/cart";
 import { Link } from "react-router-dom";
 import { routesMap } from "~/routes";
+import withStore from "~/hocs/withStore";
 
-@inject("stores")
-@observer
 class Order extends Component {
   state = {
     showModal: false
@@ -85,4 +81,4 @@ class Order extends Component {
   }
 }
 
-export default Order;
+export default withStore(Order);

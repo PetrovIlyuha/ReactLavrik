@@ -1,7 +1,7 @@
 import { observable, action, computed } from "mobx";
 
 export default class {
-  @observable formData = {
+  formData = {
     name: {
       value: "",
       label: "Name",

@@ -34,14 +34,23 @@ class Products extends React.Component {
           >
             <Card.Body>
               <Card.Title>{product.title}</Card.Title>
+              <Card.Img
+                variant="top"
+                src={product.image}
+                style={{
+                  width: "200px",
+                  borderRadius: "10px",
+                  margin: "0 auto"
+                }}
+              />
               <Card.Text>
                 <strong>Price: {product.price}</strong>
               </Card.Text>
               <Link
-                style={{ color: "#fff" }}
+                style={{ color: "teal" }}
                 to={urlBuilder("product", { id: product.id })}
               >
-                Get more...
+                View Product Details...
               </Link>
               <hr />
               {btn}

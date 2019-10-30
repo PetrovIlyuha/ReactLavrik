@@ -74,7 +74,15 @@ let conf = {
     }
   },
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
+    overlay: true,
+    proxy: {
+      "/lavrikreactapi:8082/**": {
+        target: "http://localhost",
+        secure: false,
+        changeOrigin: true
+      }
+    }
   }
 };
 
