@@ -1,7 +1,11 @@
 import { observable, action, computed } from "mobx";
 
 export default class {
-  formData = {
+  constructor(RootStore) {
+    this.RootStore = RootStore;
+  }
+
+  @observable formData = {
     name: {
       value: "",
       label: "Name",
@@ -25,10 +29,6 @@ export default class {
       valid: null
     }
   };
-
-  constructor(RootStore) {
-    this.RootStore = RootStore;
-  }
 
   @computed get formValid() {
     return Object.values(this.formData).every(field => field.valid);

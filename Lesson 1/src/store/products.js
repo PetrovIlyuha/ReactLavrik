@@ -3,6 +3,7 @@ import { observable, computed } from "mobx";
 export default class {
   constructor(RootStore) {
     this.RootStore = RootStore;
+    this.api = this.RootStore.api.products;
   }
   @observable items = getProducts();
 

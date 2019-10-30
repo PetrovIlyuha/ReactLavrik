@@ -11,7 +11,6 @@ import LinkButton from "~c/links/button";
 
 class Cart extends React.Component {
   render() {
-    console.log(this.props);
     let cartModel = this.props.stores.cart;
     let productsTableRows = cartModel.productsDetailed.map((product, i) => {
       return (
